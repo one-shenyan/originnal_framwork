@@ -279,6 +279,12 @@
         }
       });
       return  itcast(ret);
+    },
+    remove:function(){
+      this.each(function(i,v){
+        this.parentNode.removeChild(this);
+      });
+      return this;
     }
   })
 
