@@ -206,6 +206,21 @@
       source = itcast(source);
       source.prependTo(this);
        return this;
+    },
+    next:function(){
+      var ret = [];
+      this.each(function(i,v){
+        var node = v.nextSibling;
+        while(node){
+          if(node.nodeType===1){
+            ret.push(node);
+          }
+
+          node=node.nextSibling;
+        }
+      });
+      return ret;
+
     }
   })
 
