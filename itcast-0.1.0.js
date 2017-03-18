@@ -60,24 +60,24 @@
 
   init.prototype = itcast.fn;
 
-  // itcast.extend = itcast.fn.extend = function (){
-  //   var args = arguments,
-  //       i = 0,
-  //       l = args.length,
-  //       obj,
-  //       k;
+  itcast.extend = itcast.fn.extend = function (){
+    var args = arguments,
+        i = 0,
+        l = args.length,
+        obj,
+        k;
 
-  //   for ( ; i < l; i++ ){
-  //     obj = args[ i ];
-  //     for ( k in obj ){
-  //       if ( obj.hasOwnProperty( k ) ){
-  //         this[ k ] = obj[ k ];
-  //       }
-  //     }
-  //   }
+    for ( ; i < l; i++ ){
+      obj = args[ i ];
+      for ( k in obj ){
+        if ( obj.hasOwnProperty( k ) ){
+          this[ k ] = obj[ k ];
+        }
+      }
+    }
 
-  //   return this;
-  // };
+    return this;
+  };
 
   itcast.extend( {
     each: function ( obj, callback ){
@@ -105,68 +105,87 @@
 
       return obj;
     },
-    // type: function ( obj ){
-    //   if ( obj == null ){
-    //     return obj + '';
-    //   }
+    type: function ( obj ){
+      if ( obj == null ){
+        return obj + '';
+      }
 
-    //   return typeof obj !== 'object' ? typeof obj :
-    //       Object.prototype.toString.call( obj ).slice( 8, -1 ).toLowerCase();
-    // },
-    // parseHTML: function ( html ){
-    //   var div = document.createElement( 'div' ),
-    //       node,
-    //       ret = [];
+      return typeof obj !== 'object' ? typeof obj :
+          Object.prototype.toString.call( obj ).slice( 8, -1 ).toLowerCase();
+    },
+    parseHTML: function ( html ){
+      var div = document.createElement( 'div' ),
+          node,
+          ret = [];
 
-    //   div.innerHTML = html;
+      div.innerHTML = html;
 
-    //   for( node = div.firstChild; node; node = node.nextSibling ){
-    //     if ( node.nodeType === 1 ){
-    //       ret.push( node );
-    //     }
-    //   }
+      for( node = div.firstChild; node; node = node.nextSibling ){
+        if ( node.nodeType === 1 ){
+          ret.push( node );
+        }
+      }
 
-    //   return ret;
-    // }
+      return ret;
+    }
   } );
 
-  // itcast.extend( {
-  //   isString: function ( obj ){
-  //     return typeof obj === 'string';
-  //   },
-  //   isHTML: function ( obj ){
-  //     obj = obj + '';
-  //     return obj[ 0 ] === '<' && obj[ obj.length - 1 ] === '>' && obj.length >= 3;
-  //   },
-  //   isDOM: function ( obj ){
-  //     return !!obj && !!obj.nodeType;
-  //   },
-  //   isArrayLike: function ( obj ){
-  //     var length = !!obj && 'length' in obj && obj.length,
-  //         type = itcast.type( obj );
+  itcast.extend( {
+    isString: function ( obj ){
+      return typeof obj === 'string';
+    },
+    isHTML: function ( obj ){
+      obj = obj + '';
+      return obj[ 0 ] === '<' && obj[ obj.length - 1 ] === '>' && obj.length >= 3;
+    },
+    isDOM: function ( obj ){
+      return !!obj && !!obj.nodeType;
+    },
+    isArrayLike: function ( obj ){
+      var length = !!obj && 'length' in obj && obj.length,
+          type = itcast.type( obj );
 
-  //     if ( type === 'function' || itcast.isWindow( obj ) ){
-  //       return false;
-  //     }
+      if ( type === 'function' || itcast.isWindow( obj ) ){
+        return false;
+      }
 
-  //     return type === 'array' || length === 0 || 
-  //         typeof length === 'number' && length > 0 && ( length - 1 ) in obj;
-  //   },
-  //   isFunction: function ( obj ){
-  //     return typeof obj === 'function';
-  //   },
-  //   isWindow: function ( obj ){
-  //     return !!obj && obj.window === obj;
-  //   }
-  // } );
+      return type === 'array' || length === 0 || 
+          typeof length === 'number' && length > 0 && ( length - 1 ) in obj;
+    },
+    isFunction: function ( obj ){
+      return typeof obj === 'function';
+    },
+    isWindow: function ( obj ){
+      return !!obj && obj.window === obj;
+    }
+  } );
 
-  // if ( typeof define === 'function' ){
-  //   define( function (){
-  //     return itcast;
-  //   } );
-  // } else if ( typeof exports !== 'undefined' ) {
-  //   module.exports = itcast;
-  // } else {
-  //   global.$ = itcast;
-  // }
+  //itcast上面扩展实例方法（功能类方法）
+  itcast.fn.extend({
+    appendTo:function(target){
+      target = itcast(target);//将传入的目标位置转换成jquery对象  来使用jq的方法
+      //this指向方法的调用者   也就是itcast对象
+      var that = this;
+      var ret = [],node;
+      target.each(function(i,v){
+        that.each(function(j,node){
+          //实现链式编程
+          node = i===0?node:node.cloneNode(true);
+          ret.push(node);
+          v.appendChild(node);
+        })
+      })
+      return ret;
+    }
+  })
+
+  if ( typeof define === 'function' ){
+    define( function (){
+      return itcast;
+    } );
+  } else if ( typeof exports !== 'undefined' ) {
+    module.exports = itcast;
+  } else {
+    global.$ = itcast;
+  }
 }( window ) );
