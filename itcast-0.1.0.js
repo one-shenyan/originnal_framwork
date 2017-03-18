@@ -291,8 +291,22 @@
         this.innerHTML='';
       });
       return this;
+    },
+    before:function(node){
+     
+      if(itcast.isString(node)){
+        node = itcast(document.createTextNode(node));
+      }else{
+        node = itcast(node);
+      }
+      this.each(function(i,v){
+        node.each(function(j,k){
+          v.parentNode.insertBefore(i===0?k:k.cloneNode(true),v);
+        })
+      });
+      return this;
     }
-  })
+  });
 
   if ( typeof define === 'function' ){
     define( function (){
