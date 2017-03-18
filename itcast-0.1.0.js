@@ -201,6 +201,11 @@
         });
         return itcast(ret);
        });
+    },
+    prepend:function(source){
+      source = itcast(source);
+      source.prependTo(this);
+       return this;
     }
   })
 
