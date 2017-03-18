@@ -244,6 +244,28 @@
         }
       });
        return itcast(itcast.unique(ret));
+    },
+    prev:function(){
+      var ret = [];
+      this.each(function(i,v){
+        //第一种方法
+        var node = v.previousSibling;
+        while(node){
+          if(node.nodeType === 1){
+            ret.push(node);
+            
+            break;
+          }
+          node = node.previousSibling;
+        }
+        return ret;
+        //第二种方法
+        // var node = v.previousElementSibling;
+        // ret.push(node);
+        // return ret;
+
+      });
+      return ret;
     }
   })
 
