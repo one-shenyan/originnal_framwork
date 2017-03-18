@@ -182,6 +182,25 @@
        source = itcast(source);
        source.appendTo(this);
        return this;
+    },
+    prependTo:function(target){
+       //将source改变成itcast对象
+       target = itcast(target);
+       //缓存this
+       var that = this,
+          node,
+          ret=[];
+       //遍历target
+       target.each(function(i,v){
+        var firstChild = v.firstChild;
+        //遍历需要传入的jq对象
+        that.each(function(){
+          node = i===0?this:this.cloneNode(true);
+          ret.push(node);
+          v.insertBefore(node,firstChild);
+        });
+        return itcast(ret);
+       });
     }
   })
 
