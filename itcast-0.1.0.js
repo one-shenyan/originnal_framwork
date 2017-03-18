@@ -127,6 +127,15 @@
       }
 
       return ret;
+    },
+    unique:function(arr){
+      var ret = [];
+      itcast.each(arr,function(){
+       if( ret.indexOf(this) === -1){//次数的this指向每一个数组中的元素值arr[i] v
+          ret.push(this);
+       }
+      });
+      return ret;
     }
   } );
 
