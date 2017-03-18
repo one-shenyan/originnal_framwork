@@ -285,6 +285,12 @@
         this.parentNode.removeChild(this);
       });
       return this;
+    },
+    empty:function(){
+      this.each(function(){
+        this.innerHTML='';
+      });
+      return this;
     }
   })
 
