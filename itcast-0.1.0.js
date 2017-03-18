@@ -265,7 +265,20 @@
         // return ret;
 
       });
-      return ret;
+      return  itcast(ret);
+    },
+    prevAll:function(){
+      var ret = [];
+      this.each(function(i,v){
+        var node =v.previousSibling;
+        while(node){
+          if(node.nodeType===1){
+            ret.push(node); 
+          }
+          node = node.previousSibling;
+        }
+      });
+      return  itcast(ret);
     }
   })
 
