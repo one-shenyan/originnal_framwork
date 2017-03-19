@@ -369,8 +369,29 @@
       return this.each(function(){
         this.classList.add(className);
       });
+    },
+    attr:function(name,value){
+      //语法：<itcast对象>.attr(name,value)
+      //首先判断value有木有传参
+      if(value == undefined){//只传name值
+        if(typeof name==='object'){
+          this.each(function(){
+            for(var k in name){
+              this.setAttribute(k,name[k]);
+            }
+          });
+        }else{//只有一个字符串  获取属性
+          return  this.length === 0 ? undefined : this[ 0 ].getAttribute(name);
+           console.log(1);
+        }
+      }else{
+        //传入两个参数  name  和  value
+        return  this.each(function(){
+            this.setAttribute(name,value);
+        })
+      }
     }
-  })
+  });
   if ( typeof define === 'function' ){
     define( function (){
       return itcast;
