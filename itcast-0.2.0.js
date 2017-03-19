@@ -364,6 +364,11 @@
         }
       });
       return ret;
+    },
+    addClass:function(className){
+      return this.each(function(){
+        this.classList.add(className);
+      });
     }
   })
   if ( typeof define === 'function' ){
