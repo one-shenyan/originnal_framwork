@@ -335,6 +335,35 @@
             })
           }
       }
+      return this;
+    },
+    html:function(value){ //语法：$('div').html(value);
+      if(value==undefined){//获取
+        return this.length===0?undefined:this[0].innerHTML;
+      }else{//设置  设置所有的innerHTML
+        if(this.length===0){
+          return undefined;
+        }else{
+          this.each(function(){
+            this.innerHTML=value;
+          });
+        }
+      }
+      return this;
+    },
+    text:function(text){//语法：$('p').text(val);
+      if(text===undefined){//获取p标签内的文本内容
+        return this.length===0？undefined:this[0].textContent;
+      }else {//设置suoyou
+        if(this.length===0){
+          return undefined;
+        }else {
+          this.each(function(){
+            this.textContent=text;
+          })
+        }
+      }
+      return this;
     }
   })
   if ( typeof define === 'function' ){
