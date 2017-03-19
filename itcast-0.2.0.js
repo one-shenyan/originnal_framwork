@@ -321,6 +321,22 @@
       }
   });
 
+  //功能类方法    属性方法模块
+  itcast.fn.extend({
+    val:function(value){
+      if(value==undefined){//表示获取   只能获取所有中的第一个
+          return this.length===0?undefined:this[0].value;
+      }else{//表示设置  设置所有的
+          if(this.length===0){
+            return undefined;
+          }else {
+            this.each(function(){
+              this.value=value;
+            })
+          }
+      }
+    }
+  })
   if ( typeof define === 'function' ){
     define( function (){
       return itcast;
