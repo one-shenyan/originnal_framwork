@@ -327,43 +327,43 @@
       if(value==undefined){//表示获取   只能获取所有中的第一个
           return this.length===0?undefined:this[0].value;
       }else{//表示设置  设置所有的
-          if(this.length===0){
-            return undefined;
-          }else {
-            this.each(function(){
+          this.each(function(){
               this.value=value;
-            })
-          }
+            });
+         return this;     
       }
-      return this;
     },
     html:function(value){ //语法：$('div').html(value);
       if(value==undefined){//获取
         return this.length===0?undefined:this[0].innerHTML;
       }else{//设置  设置所有的innerHTML
-        if(this.length===0){
-          return undefined;
-        }else{
+        
           this.each(function(){
             this.innerHTML=value;
           });
-        }
+       return this;
       }
-      return this;
     },
     text:function(text){//语法：$('p').text(val);
       if(text===undefined){//获取p标签内的文本内容
-        return this.length===0？undefined:this[0].textContent;
+        return this.length===0?undefined:this[0].textContent;
       }else {//设置suoyou
-        if(this.length===0){
-          return undefined;
-        }else {
+       
           this.each(function(){
             this.textContent=text;
           })
-        }
+         return this;
       }
-      return this;
+    },
+    hasClass:function(className){
+      var ret = false;
+      this.each(function(){
+        if(this.classList.contains(className)){
+          ret = true;
+          return false;//结束循环
+        }
+      });
+      return ret;
     }
   })
   if ( typeof define === 'function' ){
