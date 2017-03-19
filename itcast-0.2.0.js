@@ -320,7 +320,26 @@
         return this;
       }
   });
+  //属性类 转换驼峰命名法
 
+  itcast.propFix={
+     'class': 'className',
+     'for': 'htmlFor'
+  };
+  itcast.each( [
+    "tabIndex",
+    "readOnly",
+    "maxLength",
+    "cellSpacing",
+    "cellPadding",
+    "rowSpan",
+    "colSpan",
+    "useMap",
+    "frameBorder",
+    "contentEditable"
+  ],function(){
+    itcast.propFix[ this.toLowerCase() ] = this;
+  });
   //功能类方法    属性方法模块
   itcast.fn.extend({
     val:function(value){
@@ -380,6 +399,7 @@
               this.setAttribute(k,name[k]);
             }
           });
+          return this;
         }else{//只有一个字符串  获取属性
           return  this.length === 0 ? undefined : this[ 0 ].getAttribute(name);
            console.log(1);
@@ -389,6 +409,33 @@
         return  this.each(function(){
             this.setAttribute(name,value);
         })
+      }
+    },
+    prop:function(name,value){
+      //当value值为undefined时
+      var propName;
+      if(value == undefined){
+        //name的值有两种情况   对象和字符串
+        if(typeof name==='object'){
+          this.each(function(){
+            for (var k in name){
+               propName =itcast.propFix[k] || k;
+              this[propName]=name[k];//这里的k需要处理一下  calssname
+            }
+          });
+          return this;
+        }else{
+          //传入一个值  相当于获取第一个值
+           propName = itcast.propFix[ name ] || name;
+          return this.length === 0 ? undefined : this[ 0 ][ propName ];
+        }
+      }else{
+        //传入两个值
+
+        return this.each(function(){
+           propName = itcast.propFix[name] || name;
+          this[propName]=value;
+        });
       }
     }
   });
