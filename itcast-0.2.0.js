@@ -477,7 +477,8 @@
         className == undefined ? this.className='':this.classList.remove(className);
       })
     }
-  })
+  });
+  
   if ( typeof define === 'function' ){
     define( function (){
       return itcast;
