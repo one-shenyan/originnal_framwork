@@ -439,6 +439,31 @@
       }
     }
   });
+  //样式相关方法
+  itcast.fn.extend({
+    css:function(name,value){//语法：<itcast对象>.css(name,value)
+      if(value==undefined){
+        if(typeof name ==='object'){//设置样式
+            this.each(function(){
+              for(var k in name){
+               return (this.nodeType===1) && (this.style[k] = name[k]);
+              }
+            });
+
+        }else{
+          //获取样式属性
+          return this.length===0?undefined:window.getComputedStyle(this[0])[name];
+        }
+      }
+      else {
+        //传入两个值
+        this.each(function(){
+          this.style[name]=value;
+        });
+        return this;
+      }
+    }
+  })
   if ( typeof define === 'function' ){
     define( function (){
       return itcast;
