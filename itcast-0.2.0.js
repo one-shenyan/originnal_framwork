@@ -479,11 +479,7 @@
         className == undefined ? this.className='':this.classList.remove(className);
       })
     }
-<<<<<<< HEAD
   });
-  
-=======
-  })
   //事件相关方法
   itcast.fn.extend({
     click:function(callback){//语法：<itcast对象>.click(function(){})
@@ -492,7 +488,6 @@
       });
     }
   })
->>>>>>> dev-click
   if ( typeof define === 'function' ){
     define( function (){
       return itcast;
