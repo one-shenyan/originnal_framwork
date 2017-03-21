@@ -12,26 +12,39 @@
 		.deng {
 			background-color: #000;
 		}
+		.pink {
+			background-color: pink;
+		}
+		.red {
+			background-color: red;
+		}
+		.black {
+			background-color: black;
+		}
+		.yellow {
+			background-color: yellow;
+		}
 	</style>
 </head>
 <body>
-	<button class="de">关灯</button>
-	<div class="aa"></div>
+	<button class="de">点击变色</button>
 
 
 	<script src="itcast-0.2.0.js"></script>
 	<script >
-	 	// $('.de').on('click',function(){
-	 	// 	// document.body.toggleClass('deng');
-	 	// })
-	 	// $('.aa').addClass('deng');
-	 	var flag = false;
-	 	var text = ['关灯','开灯'];
+	 	var text = ['粉红色','红色','黑色','黄色'];
+	 	var color = ['pink','red','black','yellow'];
+	 	var i = 0;
 	 	document.querySelector('.de').onclick=function(){
-	 		// var i = 0;
-	 		// i++;
-	 		$(document.body).toggleClass('deng');
-	 		// this.innerHTML=text[i%2];
+	 		console.log(color[i]);
+	 	    $(document.body).removeClass().addClass(color[i]);
+	 	     i++;
+	 	     this.innerHTML=text[i-1];
+	 	   	if(i>color.length-1){
+	 	   		i=0;
+	 	   	}
+	 	   
+	 		
 
 	 	}
 	</script>
