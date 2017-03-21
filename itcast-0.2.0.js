@@ -462,6 +462,20 @@
         });
         return this;
       }
+    },
+    toggleClass:function(className){ //语法：<itcast对象>.togglClass(className)
+      this.each(function(){
+        if(this.classList.contains(className)){
+          this.classList.remove(className);
+        }else {
+          this.classList.add(className);
+        }
+      });
+    },
+    removeClass:function(className){//语法：<itcast对象>.removeClass(className)
+      return this.each(function(){
+        className == undefined ? this.className='':this.classList.remove(className);
+      })
     }
   })
   if ( typeof define === 'function' ){
