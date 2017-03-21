@@ -491,6 +491,11 @@
       return this.each(function(){
         this.addEventListener(type,callback);
       });
+    },
+    off:function(type,callback){
+      return this.each(function(){
+        this.removeEventListener(type,callback);
+      });
     }
   });
   //使用on方法  实现创建事件的复用
@@ -501,6 +506,12 @@
     }
   });
 
+  itcast.each(('click dblclick keydown keypress mouseover mouseout mouseenter mouseleave mousemove' +
+     ' mousedown mouseup keyup focus blur load' ).split(' '),function(i,type){
+    itcast.fn[type]=function(callback){
+      return this.on(type,callback);
+    }
+  });
   if ( typeof define === 'function' ){
     define( function (){
       return itcast;
