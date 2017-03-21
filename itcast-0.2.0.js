@@ -406,10 +406,11 @@
         }
       }else{
         //传入两个参数  name  和  value
-        return  this.each(function(){
+        this.each(function(){
             this.setAttribute(name,value);
         })
       }
+      return this;
     },
     prop:function(name,value){
       //当value值为undefined时
@@ -432,11 +433,12 @@
       }else{
         //传入两个值
 
-        return this.each(function(){
+        this.each(function(){
            propName = itcast.propFix[name] || name;
           this[propName]=value;
         });
       }
+      return this;
     }
   });
   //样式相关方法
@@ -446,13 +448,13 @@
         if(typeof name ==='object'){//设置样式
             this.each(function(){
               for(var k in name){
-               return (this.nodeType===1) && (this.style[k] = name[k]);
+               (this.nodeType===1) && (this.style[k] = name[k]);
               }
             });
 
         }else{
           //获取样式属性
-          return this.length===0?undefined:window.getComputedStyle(this[0])[name];
+          return this.length===0?undefined:global.getComputedStyle(this[0])[name];
         }
       }
       else {
@@ -460,11 +462,11 @@
         this.each(function(){
           this.style[name]=value;
         });
-        return this;
       }
+       return this;
     },
     toggleClass:function(className){ //语法：<itcast对象>.togglClass(className)
-      this.each(function(){
+      return this.each(function(){
         if(this.classList.contains(className)){
           this.classList.remove(className);
         }else {
@@ -476,6 +478,14 @@
       return this.each(function(){
         className == undefined ? this.className='':this.classList.remove(className);
       })
+    }
+  })
+  //事件相关方法
+  itcast.fn.extend({
+    click:function(callback){//语法：<itcast对象>.click(function(){})
+      return this.each(function(){
+          this.addEventListener('click',callback);
+      });
     }
   })
   if ( typeof define === 'function' ){
